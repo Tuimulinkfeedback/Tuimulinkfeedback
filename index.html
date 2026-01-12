@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Đang chuyển hướng...</title>
+<meta property="og:title" content="Xem video trên TikTok">
+<meta property="og:description" content="Nhấn để mở ứng dụng ngay">
+<meta property="og:image" content="https://sf16-scmcdn-sg.ibytedtos.com/goofy/tiktok/web/node/_next/static/images/logo-dark-e95da587b61f26d5d5d9.png">
+
+<style>
+  :root {
+    --primary-color: #ff0050;
+    --bg-color: #0f172a;
+    --text-color: #ffffff;
+  }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    background-color: var(--bg-color);
+    background-image: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+    color: var(--text-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .container {
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  /* Loader */
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 0.8s ease-in-out infinite;
+    margin: 0 auto 20px;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 13px;
+    opacity: 0.6;
+    margin: 0;
+    margin-bottom: 25px;
+  }
+
+  /* Thay đổi quan trọng: Dùng thẻ <a> thay vì <button> */
+  .btn-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; /* Bỏ gạch chân */
+    padding: 14px 32px;
+    border-radius: 50px;
+    background: var(--primary-color);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255, 0, 80, 0.4);
+    transition: transform 0.2s;
+    animation: pulse 2s infinite;
+    width: 80%;
+    max-width: 280px;
+  }
+
+  .btn-link:active {
+    transform: scale(0.95);
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 80, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 0, 80, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 80, 0); }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="spinner"></div>
+  <h2 id="status">Đang kết nối TikTok...</h2>
+  <p id="subtext">Vui lòng đợi trong giây lát</p>
+  
+  <a id="targetLink" href="#" class="btn-link">
+    MỞ VIDEO NGAY ➜
+  </a>
+</div>
+
+<script>
+  /* ================= LINK CỦA BẠN ================= */
+  // Link rút gọn TikTok (vt.tiktok.com)
+  const TIKTOK_LINK = "https://vt.tiktok.com/ZSHEv8knQ6Jem-7bMb1/"; 
+  /* ================================================ */
+
+  // Gán link vào thẻ a ngay khi tải trang
+  const linkElement = document.getElementById("targetLink");
+  linkElement.href = TIKTOK_LINK;
+
+  const statusText = document.getElementById('status');
+  const subText = document.getElementById('subtext');
+  const spinner = document.querySelector('.spinner');
+
+  // Hàm tự động kích hoạt (vẫn giữ để hỗ trợ Android cũ)
+  function autoClick() {
+    // Thử kích hoạt click lên thẻ a
+    linkElement.click();
+  }
+
+  // Sau 1.5 giây: Ẩn loader, hiện nút bấm rõ ràng
+  setTimeout(() => {
+    spinner.style.display = 'none';
+    statusText.innerText = "Đã sẵn sàng!";
+    subText.innerText = "Bấm nút bên dưới để xem video";
+    
+    // Thử tự động chuyển một lần
+    autoClick();
+  }, 1000);
+
+</script>
+
+</body>
+</html>
